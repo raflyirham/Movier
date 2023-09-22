@@ -18,7 +18,7 @@ export default function Upcoming() {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${process.env.API_KEY}}`,
+        Authorization: `Bearer ${process.env.AUTH_KEY}`,
       },
     };
 
