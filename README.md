@@ -53,3 +53,4 @@ Start the server
 - [x] Add Movie Detail Page
 - [ ] Add Sorting Feature
 - [ ] Add Pagination
+- [ ] Add Responsivity
