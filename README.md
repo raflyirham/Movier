@@ -6,6 +6,7 @@ Movier is a web application to search movies from around the world. The applicat
 
 ## Live Preview
 https://movier-id.vercel.app/
+
 ## Run Locally
 
 Clone the project
@@ -46,3 +47,9 @@ Start the server
 [React-url]: https://reactjs.org/
 [TailwindCSS]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
 [TailwindURL]: https://tailwindcss.com/
+
+## Todo
+
+- [ ] Add Movie Detail Page
+- [ ] Add Sorting Feature
+- [ ] Add Pagination
