@@ -1,10 +1,12 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next13-progressbar";
 
 import MovieCard from "@/components/MovieCard/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton/MovieCardSkeleton";
+import BackButton from "@/components/BackButton/BackButton";
 MovieCardSkeleton;
 
 export default function Search() {
@@ -69,12 +71,7 @@ export default function Search() {
     <>
       <main className="flex flex-col bg-[#000] min-h-screen px-4 py-4">
         <section className="mt-32">
-          <button
-            className="bg-purple-600 px-4 py-3 rounded font-workSans text-white font-bold w-[10%] hover:bg-purple-500 active:bg-purple-700 duration-300 mb-4"
-            onClick={router.back}
-          >
-            {"< Back"}
-          </button>
+          <BackButton />
           {searchLoading ? (
             <>
               <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse"></div>

@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useRouter, redirect } from "next/navigation";
+// import { useRouter, redirect } from "next/navigation";
+import { useRouter } from "next13-progressbar";
 
 export default function Home() {
   const [search, setSearch] = useState<string>("");

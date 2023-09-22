@@ -1,5 +1,6 @@
 "use client";
 
+import BackButton from "@/components/BackButton/BackButton";
 import MovieCard from "@/components/MovieCard/MovieCard";
 import MovieCardSkeleton from "@/components/MovieCardSkeleton/MovieCardSkeleton";
 import { useRouter } from "next/navigation";
@@ -54,12 +55,7 @@ export default function Popular() {
     <>
       <main className="flex flex-col bg-[#000] min-h-screen px-4 py-4">
         <section className="mt-32">
-          <button
-            className="bg-purple-600 px-4 py-3 rounded font-workSans text-white font-bold w-[10%] hover:bg-purple-500 active:bg-purple-700 duration-300 mb-4"
-            onClick={router.back}
-          >
-            {"< Back"}
-          </button>
+          <BackButton />
           <p className="text-white text-4xl">Search For:</p>
           <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase">
             Popular Movies
