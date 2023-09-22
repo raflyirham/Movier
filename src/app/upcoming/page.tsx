@@ -48,7 +48,9 @@ export default function Upcoming() {
       fetchData();
     }
 
-    setLoading(false);
+    if (data.length > 0) {
+      setLoading(false);
+    }
   }, [data]);
 
   return (

@@ -63,6 +63,8 @@ export default function Search() {
   useEffect(() => {
     if (data.length == 0 && !searchLoading) {
       fetchData(search);
+    }
+    if (data.length > 0) {
       setLoading(false);
     }
   }, [data, searchLoading, search]);
@@ -72,7 +74,7 @@ export default function Search() {
       <main className="flex flex-col bg-[#000] min-h-screen px-4 py-4">
         <section className="mt-32">
           <BackButton />
-          {searchLoading ? (
+          {searchLoading || loading ? (
             <>
               <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse"></div>
               <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse"></div>

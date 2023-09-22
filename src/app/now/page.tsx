@@ -47,8 +47,9 @@ export default function Now() {
     if (data.length === 0) {
       fetchData();
     }
-
-    setLoading(false);
+    if (data.length > 0) {
+      setLoading(false);
+    }
   }, [data]);
 
   return (
