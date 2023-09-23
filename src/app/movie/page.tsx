@@ -77,7 +77,7 @@ export default function Movie() {
           {searchLoading || loading ? (
             <>
               <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse max-sm:w-[150px] max-sm:h-[30px]"></div>
-              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse max-sm:w-[350px] max-sm:h-[50px]"></div>
+              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse max-sm:w-[250px] max-sm:h-[50px]"></div>
             </>
           ) : (
             <>
@@ -134,7 +134,7 @@ export default function Movie() {
                 <div className="flex flex-row flex-wrap gap-4">
                   {data.genres.map((index: any, genre: any) => (
                     <div
-                      key={index}
+                      key={genre}
                       className="bg-purple-600 px-3 py-2 font-workSans text-white font-medium rounded-full text-sm hover:bg-purple-500 active:bg-purple-700 duration-300"
                     >
                       {data.genres[genre]?.name}

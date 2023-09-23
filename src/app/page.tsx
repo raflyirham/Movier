@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex flex-col bg-[#000]">
+      <main className="flex flex-col bg-[#000] ">
         <section className="flex flex-col justify-center items-center px-4 min-h-screen w-[80%] self-center justify-self-center max-lg:w-[100%]">
           <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase mb-6 max-lg:text-6xl max-md:text-5xl max-sm:text-2xl">
             Find Movies from Around the World.

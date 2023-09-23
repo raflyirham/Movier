@@ -18,8 +18,11 @@ export default function Search() {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any[]>([]);
 
-  async function fetchData(name: string) {
-    const url = `https://api.themoviedb.org/3/search/movie?query=${name}&include_adult=false&language=en-US&page=1`;
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+
+  async function fetchData(name: string, page: number) {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${name}&include_adult=false&language=en-US&page=${page}`;
     const options = {
       method: "GET",
       headers: {
@@ -47,6 +50,46 @@ export default function Search() {
       });
   }
 
+  async function fetchPages(name: string) {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${name}&include_adult=false&language=en-US&page=1`;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.AUTH_KEY}`,
+      },
+    };
+
+    fetch(url, options)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return null;
+        }
+      })
+      .then((response) => {
+        if (response !== null) {
+          setTotalPages(response.total_pages);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleNext() {
+    setLoading(true);
+    setPage(page + 1);
+    setData([]);
+  }
+
+  function handlePrevious() {
+    setLoading(true);
+    setPage(page - 1);
+    setData([]);
+  }
+
   useEffect(() => {
     setSearchLoading(true);
 
@@ -62,22 +105,30 @@ export default function Search() {
 
   useEffect(() => {
     if (data.length == 0 && !searchLoading) {
-      fetchData(search);
+      fetchData(search, page);
     }
-    if (data.length > 0) {
+
+    if (totalPages === 0 && !searchLoading) {
+      fetchPages(search);
+    }
+
+    if (data.length > 0 && totalPages > 0) {
       setLoading(false);
     }
-  }, [data, searchLoading, search]);
+  }, [data, searchLoading, search, page, totalPages]);
 
   return (
     <>
-      <main className="flex flex-col bg-[#000] min-h-screen px-4 py-4">
+      <main
+        id="list"
+        className="flex flex-col bg-[#000] min-h-screen px-4 py-4"
+      >
         <section className="mt-32">
           <BackButton />
           {searchLoading || loading ? (
             <>
               <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse max-sm:w-[150px] max-sm:h-[30px]"></div>
-              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse max-sm:w-[350px] max-sm:h-[50px]"></div>
+              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse max-sm:w-[250px] max-sm:h-[50px]"></div>
             </>
           ) : (
             <>
@@ -89,7 +140,7 @@ export default function Search() {
           )}
         </section>
 
-        <section className="flex flex-row justify-center flex-wrap gap-x-2 gap-y-7 mt-[80px]">
+        <section className="flex flex-row justify-center flex-wrap gap-x-2 gap-y-7 mt-[80px] max-sm:gap-x-0">
           {loading ? (
             <>
               <MovieCardSkeleton />
@@ -112,6 +163,28 @@ export default function Search() {
             </>
           )}
         </section>
+
+        {!loading && (
+          <section className="flex flex-row justify-center items-center gap-x-3 w-[100%] mt-8 max-sm:flex-col max-sm:w-[100%]">
+            {page > 1 && (
+              <button
+                className="bg-purple-600 px-4 py-3 rounded font-workSans text-white font-bold hover:bg-purple-500 active:bg-purple-700 duration-300 mb-4 max-sm:text-xs self-start w-[45%] max-sm:w-[100%]"
+                onClick={handlePrevious}
+              >
+                {"< Previous"}
+              </button>
+            )}
+
+            {page < totalPages && (
+              <button
+                className="bg-purple-600 px-4 py-3 rounded font-workSans text-white font-bold hover:bg-purple-500 active:bg-purple-700 duration-300 mb-4 max-sm:text-xs self-end w-[45%] max-sm:w-[100%]"
+                onClick={handleNext}
+              >
+                {"Next >"}
+              </button>
+            )}
+          </section>
+        )}
       </main>
     </>
   );

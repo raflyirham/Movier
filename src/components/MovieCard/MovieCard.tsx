@@ -28,12 +28,23 @@ export default function MovieCard({
     }
   }
 
+  function checkImage(poster: string) {
+    if (poster == null) {
+      return "/assets/img/base.png";
+    } else {
+      return base_url + poster;
+    }
+  }
+
   return (
     <>
-      <Link href={`/movie?id=${id}`} className="flex flex-row justify-center">
-        <div className="bg-[#282828] w-[300px] min-h-[500px] rounded mr-4 border-purple-400 border-[2px] hover:border-purple-600 hover:border-[2px] duration-300 max-lg:w-[50%] max-sm:w-[100%]">
+      <Link
+        href={`/movie?id=${id}`}
+        className="flex flex-row justify-center max-sm:flex-col"
+      >
+        <div className="bg-[#282828] w-[300px] min-h-[500px] rounded mr-4 border-purple-400 border-[2px] hover:border-purple-600 hover:border-[2px] duration-300 max-lg:w-[50%] max-sm:w-full ">
           <Image
-            src={base_url + poster}
+            src={checkImage(poster)}
             alt={title}
             width={1000}
             height={1000}
