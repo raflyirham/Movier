@@ -31,7 +31,7 @@ export default function MovieCard({
   return (
     <>
       <Link href={`/movie?id=${id}`} className="flex flex-row justify-center">
-        <div className="bg-[#282828] w-[300px] min-h-[500px] rounded mr-4 border-purple-400 border-[2px] hover:border-purple-600 hover:border-[2px] duration-300">
+        <div className="bg-[#282828] w-[300px] min-h-[500px] rounded mr-4 border-purple-400 border-[2px] hover:border-purple-600 hover:border-[2px] duration-300 max-lg:w-[50%] max-sm:w-[100%]">
           <Image
             src={base_url + poster}
             alt={title}

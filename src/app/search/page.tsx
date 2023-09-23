@@ -76,13 +76,13 @@ export default function Search() {
           <BackButton />
           {searchLoading || loading ? (
             <>
-              <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse"></div>
-              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse"></div>
+              <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse max-sm:w-[150px] max-sm:h-[30px]"></div>
+              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse max-sm:w-[350px] max-sm:h-[50px]"></div>
             </>
           ) : (
             <>
-              <p className="text-white text-4xl">Search For:</p>
-              <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase">
+              <p className="text-white text-4xl max-sm:text-2xl">Search For:</p>
+              <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase max-sm:text-5xl">
                 {search}
               </h2>
             </>

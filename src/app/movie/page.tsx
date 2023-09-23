@@ -68,9 +68,6 @@ export default function Movie() {
     }
   }, [data, searchLoading, search]);
 
-  console.log(data);
-  // console.log(data?.poster_path);
-
   return (
     <>
       <main className="flex flex-col bg-[#000] min-h-screen px-4 py-4">
@@ -79,13 +76,15 @@ export default function Movie() {
 
           {searchLoading || loading ? (
             <>
-              <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse"></div>
-              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse"></div>
+              <div className="bg-[#908d97] w-[200px] h-[40px] mb-3 animate-pulse max-sm:w-[150px] max-sm:h-[30px]"></div>
+              <div className="bg-[#908d97] w-[500px] h-[80px] animate-pulse max-sm:w-[350px] max-sm:h-[50px]"></div>
             </>
           ) : (
             <>
-              <p className="text-white text-4xl">Movie Detail:</p>
-              <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase">
+              <p className="text-white text-4xl max-sm:text-2xl">
+                Movie Detail:
+              </p>
+              <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase max-sm:text-5xl">
                 {data.original_title}
               </h2>
             </>
@@ -94,28 +93,29 @@ export default function Movie() {
 
         <section className="mt-[80px]">
           {loading ? (
-            <div className="flex flex-row bg-[#282828] w-full min-h-[400px] rounded mr-4">
-              <div className="w-[20%] min-h-[400px] bg-[#3f3f3f] animate-pulse"></div>
+            <div className="flex flex-row bg-[#282828] w-full min-h-[400px] rounded mr-4 max-sm:flex-col">
+              <div className="w-[20%] min-h-[400px] bg-[#3f3f3f] animate-pulse max-sm:w-[100%]"></div>
               <div className="flex flex-col p-4 w-full">
-                <div className="w-[400px] h-[50px] bg-[#3f3f3f] animate-pulse mb-2"></div>
+                <div className="w-[400px] h-[50px] bg-[#3f3f3f] animate-pulse mb-2 max-sm:w-[80%]"></div>
 
                 <div className="w-[200px] h-[20px] bg-[#3f3f3f] animate-pulse mb-4"></div>
 
-                <div className="w-full h-[100px] bg-[#3f3f3f] animate-pulse mb-4"></div>
+                <div className="w-full h-[100px] bg-[#3f3f3f] animate-pulse mb-4 max-sm:w-[80%]"></div>
 
-                <div className="w-[400px] h-[50px] bg-[#3f3f3f] animate-pulse mb-2"></div>
+                <div className="w-[400px] h-[50px] bg-[#3f3f3f] animate-pulse mb-2 max-sm:w-[80%]"></div>
 
-                <div className="w-[400px] h-[50px] bg-[#3f3f3f] animate-pulse mb-2"></div>
+                <div className="w-[400px] h-[50px] bg-[#3f3f3f] animate-pulse mb-2 max-sm:w-[80%]"></div>
               </div>
             </div>
           ) : (
-            <div className="flex flex-row bg-[#282828] w-full min-h-[400px] rounded mr-4 border-purple-400 border-[2px] hover:border-purple-600 hover:border-[2px] duration-300">
+            <div className="flex flex-row bg-[#282828] w-full min-h-[400px] rounded mr-4 border-purple-400 border-[2px] hover:border-purple-600 hover:border-[2px] duration-300 max-sm:flex-col">
               <Image
                 src={base_url + data?.poster_path}
                 alt={data.original_title}
                 width={1000}
                 height={1000}
-                style={{ width: "20%", minHeight: "400px" }}
+                // style={{ width: "20%", minHeight: "400px" }}
+                className="w-[20%] min-h-[400px] max-sm:w-[100%] max-sm:h-[400px] max-sm:rounded-t"
               ></Image>
               <div className="flex flex-col p-4">
                 <h2 className="font-workSans font-bold text-4xl text-white mb-2">

@@ -57,8 +57,8 @@ export default function Now() {
       <main className="flex flex-col bg-[#000] min-h-screen px-4 py-4">
         <section className="mt-32">
           <BackButton />
-          <p className="text-white text-4xl">Search For:</p>
-          <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase">
+          <p className="text-white text-4xl max-sm:text-2xl">Search For:</p>
+          <h2 className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 font-workSans uppercase max-sm:text-5xl">
             Now Showing Movies
           </h2>
         </section>
