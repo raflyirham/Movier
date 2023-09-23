@@ -50,6 +50,7 @@ Start the server
 
 ## Todo
 
-- [ ] Add Movie Detail Page
+- [x] Add Movie Detail Page
 - [ ] Add Sorting Feature
 - [ ] Add Pagination
+- [ ] Add Responsivity
