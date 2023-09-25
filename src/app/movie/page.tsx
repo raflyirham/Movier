@@ -15,6 +15,12 @@ export default function Movie() {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any>();
 
+  const [watchLoading, setWatchLoading] = useState<boolean>(true);
+  const [watchData, setWatchData] = useState<any>(null);
+
+  const [countryLoading, setCountryLoading] = useState<boolean>(true);
+  const [countryData, setCountryData] = useState<any[]>([]);
+
   const base_url = "https://image.tmdb.org/t/p/original";
 
   async function fetchData(id: string) {
@@ -46,6 +52,65 @@ export default function Movie() {
       });
   }
 
+  async function fetchWatchData(id: string) {
+    const url = `https://api.themoviedb.org/3/movie/${id}/watch/providers`;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.AUTH_KEY}`,
+      },
+      next: { revalidate: 0 },
+    };
+
+    fetch(url, options)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return null;
+        }
+      })
+      .then((response) => {
+        if (response !== null) {
+          setWatchData(response.results);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function fetchCountryData(id: string) {
+    const url =
+      "https://api.themoviedb.org/3/configuration/countries?language=en-US";
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.AUTH_KEY}`,
+      },
+      next: { revalidate: 0 },
+    };
+
+    fetch(url, options)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return null;
+        }
+      })
+      .then((response) => {
+        if (response !== null) {
+          setCountryData(response);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
     setSearchLoading(true);
 
@@ -67,6 +132,45 @@ export default function Movie() {
       setLoading(false);
     }
   }, [data, searchLoading, search]);
+
+  useEffect(() => {
+    setCountryLoading(true);
+
+    if (
+      data !== null &&
+      !loading &&
+      !searchLoading &&
+      countryData.length === 0
+    ) {
+      fetchCountryData(data.id);
+    }
+
+    if (countryData.length !== 0) {
+      setCountryLoading(false);
+      console.log(countryData);
+    }
+  }, [setCountryLoading, data, loading, searchLoading, countryData]);
+
+  useEffect(() => {
+    setWatchLoading(true);
+
+    if (
+      data !== null &&
+      !loading &&
+      !searchLoading &&
+      !countryLoading &&
+      watchData === null
+    ) {
+      fetchWatchData(data.id);
+    }
+
+    if (watchData !== null) {
+      // console.log(watchData["AD"].flatrate);
+      setWatchLoading(false);
+    }
+  }, [data, loading, searchLoading, countryLoading, watchData]);
+
+  // console.log(watchData);
 
   return (
     <>
@@ -143,6 +247,53 @@ export default function Movie() {
                 </div>
               </div>
             </div>
+          )}
+        </section>
+
+        <section className="mt-[80px]">
+          <h2 className="font-workSans text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800 uppercase max-sm:text-3xl mb-3">
+            Watch On:
+          </h2>
+
+          {watchLoading || loading || searchLoading || countryLoading ? (
+            <p className="font-workSans text-2xl text-white">Loading...</p>
+          ) : (
+            countryData.map((index: any, country: any) => (
+              <div key={country} className="mb-5">
+                <p className="font-workSans text-xl text-white">
+                  {countryData[country].english_name}
+                </p>
+
+                <div className="flex flex-row flex-wrap gap-5 mt-4">
+                  {watchData[countryData[country].iso_3166_1] === null ||
+                  watchData[countryData[country].iso_3166_1] === undefined ||
+                  watchData[countryData[country].iso_3166_1].flatrate ===
+                    null ||
+                  watchData[countryData[country].iso_3166_1].flatrate ===
+                    undefined ||
+                  watchData[countryData[country].iso_3166_1].flatrate.length ===
+                    0 ? (
+                    <p className="font-workSans text-lg text-white">
+                      Not Available.
+                    </p>
+                  ) : (
+                    watchData[countryData[country].iso_3166_1]?.flatrate?.map(
+                      (index: any, watch: any) => (
+                        <div
+                          key={watch}
+                          className="bg-purple-600 px-3 py-2 font-workSans text-white font-medium rounded-full text-sm hover:bg-purple-500 active:bg-purple-700 duration-300"
+                        >
+                          {
+                            watchData[countryData[country].iso_3166_1]
+                              ?.flatrate[watch]?.provider_name
+                          }
+                        </div>
+                      )
+                    )
+                  )}
+                </div>
+              </div>
+            ))
           )}
         </section>
       </main>
